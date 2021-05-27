@@ -19,16 +19,18 @@ module assy()
         union()
         {
             case();
-            translate([-24.5,-13,2]) battery();
+            translate([-24.5,-13,2])  battery();
             translate([-24.5,-14,14]) pcb();
-            translate([-8.5,0,16.5]) stick();
+            translate([-8.5,0,16.5])  stick();
         }
         // remove front half
-        translate([-30,-30,-1]) cube([60,30,40]);
+        //translate([-30,-30,-1]) cube([60,30,40]);
         // remove back half
         //translate([-30,0,-1]) cube([60,30,40]);
         // remove left
         //translate([-30,-30,-1]) cube([21.5,60,40]);
+        // remove small left
+        //translate([-30,-30,-1]) cube([10,60,40]);
         // remove right
         //translate([-8.5,-30,-1]) cube([40,60,40]);
         // remove bottom part
@@ -175,13 +177,13 @@ module case()
                 translate([23.5,18,18])
                     sphere(1.5);
                 // top corners
-                translate([-23,-14.5,21.5])
+                translate([-24.5,-16,21.5])
                     sphere(1.5);
-                translate([-23,14.5,21.5])
+                translate([-24.5,16,21.5])
                     sphere(1.5);
-                translate([22,-14.5,21.5])
+                translate([22,-16,21.5])
                     sphere(1.5);
-                translate([22,14.5,21.5])
+                translate([22,16,21.5])
                     sphere(1.5);
             }
         }
@@ -226,13 +228,13 @@ module case()
             translate([22,16.5,17.5])
                 sphere(1.5);
             // top corners
-            translate([-19,-13,20])
+            translate([-23,-14.5,20])
                 sphere(1.5);
-            translate([-19,13,20])
+            translate([-23,14.5,20])
                 sphere(1.5);
-            translate([20.5,-13,20])
+            translate([20.5,-14.5,20])
                 sphere(1.5);
-            translate([20.5,13,20])
+            translate([20.5,14.5,20])
                 sphere(1.5);
         }
         // clear LED
@@ -251,18 +253,6 @@ module case()
         // clear LCD
         translate([6.5,-15,20.5])
             cube([15,29.5,10]);
-        
-        // remove front half
-        //translate([-28,-20,-0.5]) cube([54,20,40]);
-        // remove back half
-        //translate([-28,0,-0.5]) cube([54,20,24]);
-        // remove left
-        //translate([-28,-20,-0.5]) cube([28,40,24]);
-        // remove top
-        //translate([-28,-20,12]) cube([54,40,14]);
-        // remove bottom
-        //translate([-28,-20,-0.5]) cube([54,40,11]);
-        
     }
     // LCD Bezel
     difference()
@@ -284,6 +274,22 @@ module case()
         // clear viewport
         translate([8,-13.5,22])
             cube([12.5,23,2]);
+    }
+    // USB support
+    difference()
+    {
+        translate([-25,-19.2,11])
+            cube([19.5,4,12]);
+        // clear USB connector
+        translate([-24,-20.5,12])
+            cube([11,4,9]);
+        // clear LED
+        translate([-9.5,-19.3,19])
+            rotate([-90,0,0])
+                cylinder(d=6,h=10);
+        // clear USB
+        translate([-22.8,-19,14.5])
+            cube([8.8,6,4.2]);
     }
     // battery supports
     translate([-25.5,-14,11])
@@ -345,9 +351,9 @@ module pcb()
     color("silver")
         translate([2,-1,0.9])
             cube([8,5,3.5]);
-    color("brown")
-        translate([1,-3-10,-1.5])
-            cube([10,10,8]);
+    //color("brown")
+    //    translate([1,-3-10,-1.5])
+    //        cube([10,10,8]);
     // LED
     translate([15,-3.5,5])
     {
@@ -447,5 +453,5 @@ module pcb()
 
 module battery()
 {
-    cube([43,25,8]);
+    cube([43,25,7]);
 }
