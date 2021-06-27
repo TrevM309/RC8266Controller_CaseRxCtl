@@ -6,6 +6,7 @@ $fn = 70;
 //battery();
 //pcb();
 //case();
+//bung();
 //halfCase(1);    // 0 or 1
 //stick();
 //halfStick();
@@ -20,8 +21,9 @@ module assy()
         {
             case();
             translate([-24.5,-13,2])  battery();
-            translate([-24.5,-14,14]) pcb();
+            //translate([-24.5,-14,14]) pcb();
             translate([-8.5,0,16.5])  stick();
+            translate([-0.5,22,14])  bung();
         }
         // remove front half
         //translate([-30,-30,-1]) cube([60,30,40]);
@@ -47,12 +49,15 @@ module print()
     translate([0,-2,14.77])
         rotate([71.5,0,0])
             halfCase(1);
-    translate([-22,0,0])
+    translate([-22,-15,0])
         rotate([90,0,-90])
             halfStick();
-    translate([19,0,0])
-        rotate([90,0,90])
+    translate([-22,15,0])
+        rotate([90,0,-90])
             halfStick();
+    translate([25,-10,2])
+        rotate([90,0,90])
+            bung();
 }
 
 module halfCase(side)
@@ -80,6 +85,26 @@ module halfStick()
         stick();
         translate([-15,-15,7])
             cube([30,15,22]);
+    }
+}
+
+// bung for program port
+module bung()
+{
+    // cap straight
+    cube([19,1,4.5]);
+    // cap bent
+    translate([0,0.1,4])
+        rotate([29,0,0])
+            cube([19,1,4.5]);
+    translate([1,-2,1]) difference()
+    {
+        cube([17,2.1,5.5]);
+        translate([1,-1,1])
+            cube([15,2.1,3.5]);
+        translate([0,2.5,4])
+            rotate([29,0,0])
+                cube([19,1,4.5]);
     }
 }
 
@@ -238,11 +263,11 @@ module case()
                 sphere(1.5);
         }
         // clear LED
-        translate([-9.5,-20.5,19])
+        translate([-7.4,-20.5,18])
             rotate([-90,0,0])
                 cylinder(d=6,h=10);
         // clear USB
-        translate([-24,-20.5,12])
+        translate([-24,-20.5,13])
             cube([11,10,9]);
         // clear switch
         translate([-14,15.5,13.5])
@@ -278,19 +303,23 @@ module case()
     // USB support
     difference()
     {
-        translate([-25,-19.2,11])
-            cube([19.5,4,12]);
+        translate([-25,-18,12])
+            cube([13,3,10]);
         // clear USB connector
-        translate([-24,-20.5,12])
-            cube([11,4,9]);
+        translate([-24,-19,13])
+            cube([11,3.5,8]);
         // clear LED
-        translate([-9.5,-19.3,19])
-            rotate([-90,0,0])
-                cylinder(d=6,h=10);
+        //translate([-9.5,-19.3,19])
+        //    rotate([-90,0,0])
+        //        cylinder(d=6,h=10);
         // clear USB
-        translate([-22.8,-19,14.5])
+        translate([-23.2,-19,15])
             cube([8.8,6,4.2]);
+        translate([-26,-21.47,19])
+            rotate([-30,0,0])
+                cube([15,2,5]);
     }
+    
     // battery supports
     translate([-25.5,-14,11])
     {
@@ -332,7 +361,7 @@ module case()
             cube([0.75,7.2,1.5]);
     }
     //  pcb support by LED
-    translate([-6,-19,13]) difference()
+    translate([-4.5,-19,13]) difference()
     {
         cube([12,5.5,3]);
         translate([-0.1,5,0.75])
@@ -344,18 +373,24 @@ module case()
 // brown are external connectors
 module pcb()
 {
+    // use step/stl for accuracy
+    /*
+    rotate([180,0,90])
+        translate([-114,126.5,-1])
+            import ("RcCtlHw.stl");
+    */
     // pcb
     color("lightgreen")
         cube([42,27,1]);
     // USB
     color("silver")
-        translate([2,-1,0.9])
+        translate([1.7,0,0.9])
             cube([8,5,3.5]);
     //color("brown")
     //    translate([1,-3-10,-1.5])
     //        cube([10,10,8]);
     // LED
-    translate([15,-3.5,5])
+    translate([17.15,-2.5,3.9])
     {
         color("lightblue")
         {
@@ -404,21 +439,21 @@ module pcb()
     translate([9,7,0.9])
         color("silver") cube([14,14,10.1]);
     //  vert axis
-    translate([16,6,6.9])
+    translate([16.2,6,6.9])
         color("white")
             rotate([-90,0,0]) cylinder(d=2.5,h=5);
     //  vert resistor
     translate([11,20.9,0.9])
         color("green") cube([10,3,10.6]);
     //  horiz axis
-    translate([8,14,6.9])
+    translate([8,13.8,7])
         color("white")
             rotate([0,90,0]) cylinder(d=3.5,h=5);
     //  horiz resistor
     translate([23,9,0.9])
         color("green") cube([3,10,10.6]);
     //  lever
-    translate([16,14,9.9])
+    translate([16.2,13.8,9.9])
         color("white")
         {
             cylinder(d=3.3,h=8.1);
@@ -443,8 +478,11 @@ module pcb()
     // ESP
     translate([27,4.5,-0.5])
         color("black") cube([20.5,12.5,0.5]);
-    translate([27.5,6,-3])
-        color("silver") cube([13,9.5,3]);
+    translate([27.5,6,-3.5])
+        color("silver") cube([13,10.1,3]);
+    // regulator
+    translate([2.5,10.9,-3])
+        color("black") cube([5.7,5.7,3]);
     // components
     translate([0,1,-2.5])
         color("silver")
