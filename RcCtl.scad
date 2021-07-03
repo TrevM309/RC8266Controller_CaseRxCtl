@@ -5,25 +5,56 @@ $fn = 70;
 
 //battery();
 //pcb();
-//case();
+//case1();
+//case2();
 //bung();
-//halfCase(1);    // 0 or 1
+//halfCase1(1);    // 0 or 1
 //stick();
 //halfStick();
-print();
-//assy();
+//print();
+assy1();
+//assy2();
 
-module assy()
+module assy1()
 {
     difference()
     {
         union()
         {
-            case();
+            case1();
+            //case2();
             translate([-24.5,-13,2])  battery();
-            //translate([-24.5,-14,14]) pcb();
+            translate([-24.5,-14,14]) pcb();
             translate([-8.5,0,16.5])  stick();
-            translate([-0.5,22,14])  bung();
+            //translate([-0.5,22,14])  bung();
+        }
+        // remove front half
+        //translate([-30,-30,-1]) cube([60,30,40]);
+        // remove back half
+        //translate([-30,0,-1]) cube([60,30,40]);
+        // remove left
+        //translate([-30,-30,-1]) cube([21.5,60,40]);
+        // remove small left
+        //translate([-30,-30,-1]) cube([10,60,40]);
+        // remove right
+        //translate([-8.5,-30,-1]) cube([40,60,40]);
+        // remove bottom part
+        //translate([-30,-30,-1]) cube([60,60,14]);
+        
+    }
+}
+
+module assy2()
+{
+    difference()
+    {
+        union()
+        {
+            case2();
+            translate([-24.5,-13,2])  battery();
+            translate([-24.5,-14,12]) pcb();
+            translate([-8.5,0,14.5])  stick();
+            //translate([-0.5,22,14])  bung();
         }
         // remove front half
         //translate([-30,-30,-1]) cube([60,30,40]);
@@ -45,10 +76,10 @@ module print()
 {
     translate([0,2,14.77])
         rotate([-71.5,0,0])
-            halfCase(0); 
+            halfCase1(0); 
     translate([0,-2,14.77])
         rotate([71.5,0,0])
-            halfCase(1);
+            halfCase1(1);
     translate([-22,-15,0])
         rotate([90,0,-90])
             halfStick();
@@ -60,11 +91,19 @@ module print()
             bung();
 }
 
-module halfCase(side)
+module case2()
+{
+    translate([-24,-15,10]) sphere(d=6);
+    translate([-24, 16,10]) sphere(d=6);
+    translate([-24,-15,15]) sphere(d=6);
+    translate([-24, 16,15]) sphere(d=6);
+}
+
+module halfCase1(side)
 {
     difference()
     {
-        case();
+        case1();
         if (side == 0)
         {
             // remove front half
@@ -159,7 +198,9 @@ module stick()
     }
 }
 
-module case()
+Orad = 1.5;
+
+module case1()
 {
     difference()
     {
@@ -176,40 +217,40 @@ module case()
             {
                 // bottom corners
                 translate([-25.5,-14.5,1.5])
-                    sphere(1.5);
+                    sphere(Orad);
                 translate([-25.5,14.5,1.5])
-                    sphere(1.5);
+                    sphere(Orad);
                 translate([19.5,-14.5,1.5])
-                    sphere(1.5);
+                    sphere(Orad);
                 translate([19.5,14.5,1.5])
-                    sphere(1.5);
+                    sphere(Orad);
                 // middle
                 translate([-25.5,-18,12])
-                    sphere(1.5);
+                    sphere(Orad);
                 translate([-25.5,18,12])
-                    sphere(1.5);
+                    sphere(Orad);
                 translate([23.5,-18,12])
-                    sphere(1.5);
+                    sphere(Orad);
                 translate([23.5,18,12])
-                    sphere(1.5);
+                    sphere(Orad);
                 // middle
                 translate([-25.5,-18,18])
-                    sphere(1.5);
+                    sphere(Orad);
                 translate([-25.5,18,18])
-                    sphere(1.5);
+                    sphere(Orad);
                 translate([23.5,-18,18])
-                    sphere(1.5);
+                    sphere(Orad);
                 translate([23.5,18,18])
-                    sphere(1.5);
+                    sphere(Orad);
                 // top corners
                 translate([-24.5,-16,21.5])
-                    sphere(1.5);
+                    sphere(Orad);
                 translate([-24.5,16,21.5])
-                    sphere(1.5);
+                    sphere(Orad);
                 translate([22,-16,21.5])
-                    sphere(1.5);
+                    sphere(Orad);
                 translate([22,16,21.5])
-                    sphere(1.5);
+                    sphere(Orad);
             }
         }
         // hollow out
@@ -227,40 +268,40 @@ module case()
         {
             // bottom corners
             translate([-24,-13,3])
-                sphere(1.5);
+                sphere(Orad);
             translate([-24,13,3])
-                sphere(1.5);
+                sphere(Orad);
             translate([18,-13,3])
-                sphere(1.5);
+                sphere(Orad);
             translate([18,13,3])
-                sphere(1.5);
+                sphere(Orad);
             // middle
             translate([-24,-16.5,12.5])
-                sphere(1.5);
+                sphere(Orad);
             translate([-24,16.5,12.5])
-                sphere(1.5);
+                sphere(Orad);
             translate([22,-16.5,12.5])
-                sphere(1.5);
+                sphere(Orad);
             translate([22,16.5,12.5])
-                sphere(1.5);
+                sphere(Orad);
             // middle
             translate([-24,-16.5,17.5])
-                sphere(1.5);
+                sphere(Orad);
             translate([-24,16.5,17.5])
-                sphere(1.5);
+                sphere(Orad);
             translate([22,-16.5,17.5])
-                sphere(1.5);
+                sphere(Orad);
             translate([22,16.5,17.5])
-                sphere(1.5);
+                sphere(Orad);
             // top corners
             translate([-23,-14.5,20])
-                sphere(1.5);
+                sphere(Orad);
             translate([-23,14.5,20])
-                sphere(1.5);
+                sphere(Orad);
             translate([20.5,-14.5,20])
-                sphere(1.5);
+                sphere(Orad);
             translate([20.5,14.5,20])
-                sphere(1.5);
+                sphere(Orad);
         }
         // clear LED
         translate([-7.4,-20.5,18])
@@ -491,5 +532,5 @@ module pcb()
 
 module battery()
 {
-    cube([43,25,7]);
+    cube([43,25,6]);
 }
