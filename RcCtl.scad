@@ -11,8 +11,10 @@ $fn = 70;
 //halfCase1(1);    // 0 or 1
 //stick();
 //halfStick();
-//print();
-assy1();
+//print1();
+print2();
+//SectChk();
+//assy1();
 //assy2();
 
 module assy1()
@@ -24,7 +26,7 @@ module assy1()
             case1();
             //case2();
             translate([-24.5,-13,2])  battery();
-            translate([-24.5,-14,14]) pcb();
+            translate([-24.5,-14,14]) pcb(0);
             translate([-8.5,0,16.5])  stick();
             //translate([-0.5,22,14])  bung();
         }
@@ -51,28 +53,31 @@ module assy2()
         union()
         {
             case2();
-            translate([-24.5,-13,2])  battery();
-            translate([-24.5,-14,12]) pcb();
-            translate([-8.5,0,14.5])  stick();
-            //translate([-0.5,22,14])  bung();
+            translate([-24.5,-13,5])  battery();
+            translate([-24.5,-41,5])  pcb(1);
+            translate([-24.5, 13,5])  pcb(2);
+            translate([-8.5,-27,7.5]) stick();
+            translate([-8.5, 27,7.5]) stick();
         }
         // remove front half
         //translate([-30,-30,-1]) cube([60,30,40]);
         // remove back half
         //translate([-30,0,-1]) cube([60,30,40]);
         // remove left
-        //translate([-30,-30,-1]) cube([21.5,60,40]);
+        //translate([-30,-50,-1]) cube([21.5,100,40]);
         // remove small left
-        //translate([-30,-30,-1]) cube([10,60,40]);
+        //translate([-30,-40,-1]) cube([22,80,40]);
         // remove right
         //translate([-8.5,-30,-1]) cube([40,60,40]);
         // remove bottom part
         //translate([-30,-30,-1]) cube([60,60,14]);
+        // remove top part
+        //translate([-30,-50,9]) cube([60,100,30]);
         
     }
 }
 
-module print()
+module print1()
 {
     translate([0,2,14.77])
         rotate([-71.5,0,0])
@@ -91,12 +96,227 @@ module print()
             bung();
 }
 
+//print2();
+module print2()
+{
+    ChgEnd2();
+    ChgMid2();
+    SwMid2();
+    SwEnd2();
+}
+
+//SectChk();
+module SectChk()
+{
+    translate([-26,0,0]) case2();
+    // add 0.1 to Y to see join in parts
+    translate([ 28,-45, -2]) rotate([-90,0,0]) ChgEnd2();
+    translate([ 28,-26,-28]) rotate([-90,0,0]) ChgMid2();
+    translate([ 28, 27,-27]) rotate([ 90,0,0]) SwMid2();
+    translate([ 28, 46, -2]) rotate([ 90,0,0]) SwEnd2();
+}
+
+//ChgEnd2();
+module ChgEnd2()
+{
+    translate([0,-2,45]) difference()
+    {
+        rotate([90,0,0])
+            case2();
+        translate([-32,-29,-26])
+            cube([64,30,100]);
+    }
+}
+
+//ChgMid2();
+module ChgMid2()
+{
+    translate([0,-28,26]) difference()
+    {
+        rotate([90,0,0])
+            case2();
+        translate([-32,-29,0])
+            cube([64,30,100]);
+        translate([-32,-29,-52])
+            cube([64,30,26]);
+    }
+}
+
+//SwEnd2();
+module SwEnd2()
+{
+    translate([0,2,46]) difference()
+    {
+        rotate([-90,0,0])
+            case2();
+        translate([-32,-0.1,-27])
+            cube([64,30,100]);
+    }
+}
+
+//SwMid2();
+module SwMid2()
+{
+    translate([0,28,27]) difference()
+    {
+        rotate([-90,0,0])
+            case2();
+        translate([-32,-0.1,0])
+            cube([64,30,100]);
+        translate([-32,-0.1,-52])
+            cube([64,30,25]);
+    }
+}
+
+
 module case2()
 {
-    translate([-24,-15,10]) sphere(d=6);
-    translate([-24, 16,10]) sphere(d=6);
-    translate([-24,-15,15]) sphere(d=6);
-    translate([-24, 16,15]) sphere(d=6);
+    difference()
+    {
+        union()
+        {
+            translate([-8.5,-27,8]) difference()
+            {
+                sphere(r = 18);
+                translate([-18.5,-18.5,-18.5])
+                    cube([37,37,18.5]);
+            }
+            translate([-8.5, 27,8]) difference()
+            {
+                sphere(r = 18);
+                translate([-18.5,-18.5,-18.5])
+                    cube([37,37,18.5]);
+            }
+            hull()
+            {
+                translate([-24,-41,4]) sphere(d=8);
+                translate([-24, 42,4]) sphere(d=8);
+                translate([-24,-41,9]) sphere(d=8);
+                translate([-24, 42,9]) sphere(d=8);
+                translate([ 21,-41,4]) sphere(d=8);
+                translate([ 21, 42,4]) sphere(d=8);
+                translate([ 21,-41,9]) sphere(d=8);
+                translate([ 21, 42,9]) sphere(d=8);
+            }
+        }
+        translate([-8.5,-27,8]) difference()
+        {
+            sphere(r = 16);
+            translate([-18.5,-18.5,-18.5])
+                cube([37,37,18.5]);
+        }
+        translate([-8.5,-27,8]) cylinder(r1 = 6, r2 = 10,h=20);
+        translate([-8.5, 27,8]) difference()
+        {
+            sphere(r = 16);
+            translate([-18.5,-18.5,-18.5])
+                cube([37,37,18.5]);
+        }
+        translate([-8.5, 27,8]) cylinder(r1 = 6, r2 = 10,h=20);
+        hull()
+        {
+            translate([-24,-41,4]) sphere(d=5);
+            translate([-24, 41,4]) sphere(d=5);
+            translate([-24,-41,9]) sphere(d=5);
+            translate([-24, 41,9]) sphere(d=5);
+            translate([ 21,-41,4]) sphere(d=5);
+            translate([ 21, 41,4]) sphere(d=5);
+            translate([ 21,-41,9]) sphere(d=5);
+            translate([ 21, 41,9]) sphere(d=5);
+        }
+        // clear LED
+        translate([-7.4,-45,9])
+            rotate([-90,0,0])
+                cylinder(d=6,h=10);
+        // clear USB
+        translate([-24.5,-45,4])
+            cube([12,10,7]);
+        // clear LCD
+        translate([7.5,-42,10])
+            cube([15,29.5,10]);
+        // clear switch
+        translate([-14,41,4.5])
+            cube([7.5,5,3.5]);
+        // clear switch
+        translate([-20.3,40,3])
+            cube([20.5,5,6.5]);
+        // clear program
+        translate([0.5,41,6])
+            cube([17,6,5.5]);
+    }
+    // LCD Bezel
+    difference()
+    {
+        hull()
+        {
+            // -15 -> -42 = -27
+            translate([7.5,-42,11.5])
+                cylinder(d=1.5,h=3);
+            translate([7.5,-27+15,11.5])
+                cylinder(d=1.5,h=3);
+            translate([22.5,-42,11.5])
+                cylinder(d=1.5,h=3);
+            translate([22.5,-27+15,11.5])
+                cylinder(d=1.5,h=3);
+        }
+        // clear LCD
+        translate([7.5,-42,11.4])
+            cube([15,30,2.5]);
+        // clear viewport
+        translate([9,-27-13.5,13])
+            cube([12.5,23,2]);
+    }
+    // USB support
+    difference()
+    {
+        // y -18 -> -40
+        // v 12 -> 
+        translate([-26,-44.1,1.8])
+            cube([15,2.8,9.4]);
+        // clear USB connector
+        translate([-24.5,-44.4,4])
+            cube([12,2,6.9]);
+        // clear USB
+        translate([-23.2,-44,5.5])
+            cube([8.8,6,4.2]);
+    }
+    // lcd supports
+    translate([6.75,-43,10.5]) difference()
+    {
+        cube([17,32,1]);
+        translate([2,-0.1,-0.1])
+            cube([12.5,31.2,1.2]);
+    }
+    // main pcb supports
+    translate([-9,-43.5,1]) difference()
+    {
+        cube([28,3.3,5]);
+        translate([-0.1,2,3.5])
+            cube([27,3,3]);
+    }
+    translate([-26.7,-15,1]) difference()
+    {
+        cube([46.5,2,5]);
+        translate([1.7,-1,3.5])
+            cube([43,2.5,3]);
+    }
+    // other pcb supports
+    translate([-26.7, 12,1]) difference()
+    {
+        cube([46.5,2,5]);
+        translate([1.7,0.5,3.5])
+            cube([43,2.5,3]);
+    }
+    translate([-26.7, 39,1]) difference()
+    {
+        cube([46.5,5,5]);
+        translate([1.7,-1,3.5])
+            cube([43,2.5,3]);
+        translate([6.3,-1.1,0])
+            cube([20.6,7,10]);
+    }
+    // battery support
+    //translate([-26.7,-10,1]) cube([46.5,20,3.5]);
 }
 
 module halfCase1(side)
@@ -207,12 +427,14 @@ module case1()
         // case
         union()
         {
+            // dome
             translate([-8.5,0,16]) difference()
             {
                 sphere(r = 18);
                 translate([-18.5,-18.5,-18.5])
                     cube([37,37,18.5]);
             }
+            // body
             hull()
             {
                 // bottom corners
@@ -412,7 +634,7 @@ module case1()
 }
 
 // brown are external connectors
-module pcb()
+module pcb(sw)
 {
     // use step/stl for accuracy
     /*
@@ -423,58 +645,64 @@ module pcb()
     // pcb
     color("lightgreen")
         cube([42,27,1]);
-    // USB
-    color("silver")
-        translate([1.7,0,0.9])
-            cube([8,5,3.5]);
-    //color("brown")
-    //    translate([1,-3-10,-1.5])
-    //        cube([10,10,8]);
-    // LED
-    translate([17.15,-2.5,3.9])
+    if (sw != 2)
     {
-        color("lightblue")
-        {
-            sphere(2.5);
-            rotate([-90,0,0])
-                cylinder(d=5,h=7);
-        }
+        // USB
         color("silver")
-            translate([-2,6.9,-4.5])
-                cube([4,1,4.5]);
-    }
-    // switch
-    translate([9,26.9,-1.5])
-    {
-        color("black")
+            translate([1.7,0,0.9])
+                cube([8,5,3.5]);
+        // LED
+        translate([17.15,-2.5,3.9])
         {
-            // body
-            cube([11,5,5.5]);
-            // mounting plate
-            translate([-4.5,4.5,0]) difference()
+            color("lightblue")
             {
-                cube([20,0.5,5.5]);
-                translate([2.5,-0.1,2.75])
+                sphere(2.5);
+                rotate([-90,0,0])
+                    cylinder(d=5,h=7);
+            }
+            color("silver")
+                translate([-2,6.9,-4.5])
+                    cube([4,1,4.5]);
+        }
+    }
+    if (sw != 1)
+    {
+        // switch
+        translate([9,26.9,-1.5])
+        {
+            color("black")
+            {
+                // body
+                cube([11,5,5.5]);
+                // mounting plate
+                translate([-4.5,4.5,0]) difference()
                 {
-                    rotate([-90,0,0])
-                        cylinder(d=2.5,h=0.7);
-                    translate([15,0,0])
+                    cube([20,0.5,5.5]);
+                    translate([2.5,-0.1,2.75])
+                    {
                         rotate([-90,0,0])
                             cylinder(d=2.5,h=0.7);
+                        translate([15,0,0])
+                            rotate([-90,0,0])
+                                cylinder(d=2.5,h=0.7);
+                    }
                 }
+                // button (both pos)
+                translate([2,4.9,1.25])
+                    cube([3,3.1,3]);
+                translate([5.5,4.9,1.25])
+                    cube([3,3.1,3]);
             }
-            // button (both pos)
-            translate([2,4.9,1.25])
-                cube([3,3.1,3]);
-            translate([5.5,4.9,1.25])
-                cube([3,3.1,3]);
         }
     }
     // connector
     translate([25,23.5,0.9])
         color("yellow") cube([16.5,2.5,2.6]);
-    translate([25.5,26.5,1.5])
-        color("brown") cube([16,9,4.5]);
+    if (sw != 1)
+    {
+        translate([25.5,26.5,1.5])
+            color("brown") cube([16,9,4.5]);
+    }
     // joystick
     //   body
     translate([9,7,0.9])
@@ -511,19 +739,22 @@ module pcb()
     //translate([16,14,9.9])
     //    color("white",0.4)
     //        cylinder(d1=10,d2=17,h=6.1);
-    // LCD
-    translate([31.5,-0.5,7])
-        color("black") cube([14,28,1.5]);
-    translate([33,1,7.5])
-        color("blue") cube([11.5,22,1.1]);
-    // ESP
-    translate([27,4.5,-0.5])
-        color("black") cube([20.5,12.5,0.5]);
-    translate([27.5,6,-3.5])
-        color("silver") cube([13,10.1,3]);
-    // regulator
-    translate([2.5,10.9,-3])
-        color("black") cube([5.7,5.7,3]);
+    if (sw != 2)
+    {
+        // LCD
+        translate([31.5,-0.5,7])
+            color("black") cube([14,28,1.5]);
+        translate([33,1,7.5])
+            color("blue") cube([11.5,22,1.1]);
+        // ESP
+        translate([27,4.5,-0.5])
+            color("black") cube([20.5,12.5,0.5]);
+        translate([27.5,6,-3.5])
+            color("silver") cube([13,10.1,3]);
+        // regulator
+        translate([2.5,10.9,-3])
+            color("black") cube([5.7,5.7,3]);
+    }
     // components
     translate([0,1,-2.5])
         color("silver")
