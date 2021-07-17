@@ -12,7 +12,8 @@ $fn = 70;
 //stick();
 //halfStick();
 //print1();
-print2();
+//print2();
+print2a();
 //SectChk();
 //assy1();
 //assy2();
@@ -103,6 +104,22 @@ module print2()
     ChgMid2();
     SwMid2();
     SwEnd2();
+}
+
+module print2a()
+{
+    translate([7,-15,0])
+        rotate([90,0,-90])
+            halfStick();
+    translate([7, 15,0])
+        rotate([90,0,-90])
+            halfStick();
+    translate([-7,-15,0])
+        rotate([90,0, 90])
+            halfStick();
+    translate([-7, 15,0])
+        rotate([90,0, 90])
+            halfStick();
 }
 
 //SectChk();
