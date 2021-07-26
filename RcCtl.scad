@@ -13,6 +13,7 @@ $fn = 70;
 //stick();
 //halfStick();
 //print1();
+//translate([0,0,-14.1]) front2();
 print2();
 //SectChk();
 //assy1();
@@ -101,17 +102,18 @@ module print1()
 module print2()
 {
     //translate([-100,0,0]) case2();
-    translate([-30,0,0]) base2();
+    translate([-34,0,0]) base2();
     //translate([-30,0,0]) top2();
     //translate([ 30,0,-14]) top2();
-    translate([-19,0,-8]) rotate([0,90,0]) front2();
+    //translate([-19,0,-8]) rotate([0,90,0]) front2();
+    translate([18,0,-14.1]) front2();
     //translate([ 22,0,-8]) back2();
     translate([ 22, 32,-3]) rotate([ 90,0,0]) left2();
     translate([ 22,-32, 3]) rotate([-90,0,0]) right2();
-    translate([ 28,-12, 0]) rotate([ 90,0,  0]) halfStick();
-    translate([ 37,-15, 0]) rotate([ 90,0, 90]) halfStick();
-    translate([ 28, 12, 0]) rotate([ 90,0,180]) halfStick();
-    translate([ 37, 15, 0]) rotate([ 90,0, 90]) halfStick();
+    translate([ 28,-13, 0]) rotate([ 90,0,  0]) halfStick();
+    translate([ 39,-15, 0]) rotate([ 90,0, 90]) halfStick();
+    translate([ 28, 13, 0]) rotate([ 90,0,180]) halfStick();
+    translate([ 39, 15, 0]) rotate([ 90,0, 90]) halfStick();
 }
 
 module base2()
@@ -179,6 +181,7 @@ module case2()
     by2 = -13;
     by1 = by2+30.5;
     bz = 14;
+    pht = 12;
     
     difference()
     {
@@ -256,7 +259,7 @@ module case2()
         // clear viewport
         translate([bx1+2,by2+5,12]) cube([12,23.5,11]);
         // clear program
-        //translate([9,18.8,16]) cube([5.5,17,6]);
+        translate([17,18.8,pht]) cube([5.5,17,6]);
     }
     // pcb supports
     difference()
@@ -297,6 +300,8 @@ module case2()
             translate([0.1,0.1,0]) cube([43,44.5,3]);
             translate([5,0.1,0]) cube([38.1,68.5,3]);
         }
+        // clear program
+        translate([17,18.8,pht]) cube([5.5,17,6]);
     }
     // Battery supports
     translate([-20,-10.5,1])   cube([20,1.5,5]);
