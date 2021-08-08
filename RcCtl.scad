@@ -1,7 +1,7 @@
 // TrevM 15/05/2021
 // Remote Control Transmitter Case
 
-$fn = 70;
+$fn = 100;
 
 //battery();
 //pcb();
@@ -12,9 +12,9 @@ $fn = 70;
 //halfCase1(1);    // 0 or 1
 //stick();
 //halfStick();
-//print1();
+print1();
 //translate([0,0,-14.1]) front2();
-print2();
+//print2();
 //SectChk();
 //assy1();
 //assy2();
@@ -33,6 +33,7 @@ module assy1()
         }
         // remove front half
         //translate([-30,-30,-1]) cube([60,30,40]);
+        translate([-30,-30,-1]) cube([60,45,60]);
         // remove back half
         //translate([-30,0,-1]) cube([60,30,40]);
         // remove left
@@ -43,7 +44,7 @@ module assy1()
         //translate([-8.5,-30,-1]) cube([40,60,40]);
         // remove bottom part
         //translate([-30,-30,-1]) cube([60,60,14]);
-        
+        //translate([-30,-30,-1]) cube([60,60,20]);
     }
 }
 
@@ -93,9 +94,9 @@ module print1()
     translate([-22,15,0])
         rotate([90,0,-90])
             halfStick();
-    translate([25,-10,2])
-        rotate([90,0,90])
-            bung();
+    //translate([25,-10,2])
+    //    rotate([90,0,90])
+    //        bung();
 }
 
 //print2();
@@ -428,41 +429,27 @@ module case1()
             hull()
             {
                 // bottom corners
-                translate([-25.5,-14.5,1.5])
-                    sphere(Orad);
-                translate([-25.5,14.5,1.5])
-                    sphere(Orad);
-                translate([19.5,-14.5,1.5])
-                    sphere(Orad);
-                translate([19.5,14.5,1.5])
-                    sphere(Orad);
+                translate([-25.5,-14.5,1.5]) sphere(Orad);
+                translate([-25.5,14.5,1.5])  sphere(Orad);
+                translate([19.5,-14.5,1.5])  sphere(Orad);
+                translate([19.5,14.5,1.5])   sphere(Orad);
                 // middle
-                translate([-25.5,-18,12])
-                    sphere(Orad);
-                translate([-25.5,18,12])
-                    sphere(Orad);
-                translate([23.5,-18,12])
-                    sphere(Orad);
-                translate([23.5,18,12])
-                    sphere(Orad);
+                translate([-25.5,-18,12]) sphere(Orad);
+                translate([-25.5,18,12])  sphere(Orad);
+                translate([23.5,-18,12])  sphere(Orad);
+                translate([23.5,18,12])   sphere(Orad);
+                /*
                 // middle
-                translate([-25.5,-18,18])
-                    sphere(Orad);
-                translate([-25.5,18,18])
-                    sphere(Orad);
-                translate([23.5,-18,18])
-                    sphere(Orad);
-                translate([23.5,18,18])
-                    sphere(Orad);
+                translate([-25.5,-18,18]) sphere(Orad);
+                translate([-25.5,18,18])  sphere(Orad);
+                translate([23.5,-18,18])  sphere(Orad);
+                translate([23.5,18,18])   sphere(Orad);
+                */
                 // top corners
-                translate([-24.5,-16,21.5])
-                    sphere(Orad);
-                translate([-24.5,16,21.5])
-                    sphere(Orad);
-                translate([22,-16,21.5])
-                    sphere(Orad);
-                translate([22,16,21.5])
-                    sphere(Orad);
+                translate([-24.5,-15.6,21.5]) sphere(Orad);
+                translate([-24.5, 15.6,21.5]) sphere(Orad);
+                translate([ 22,  -15.6,21.5]) sphere(Orad);
+                translate([ 22,   15.6,21.5]) sphere(Orad);
             }
         }
         // hollow out
@@ -471,66 +458,48 @@ module case1()
             difference()
             {
                 sphere(r = 16.5);
-                translate([-17,-17,-17])
-                    cube([34,34,17]);
+                translate([-17,-17,-17]) cube([34,34,17]);
             }
             cylinder(r1 = 6, r2 = 10,h=20);
         }
         hull()
         {
             // bottom corners
-            translate([-24,-13,3])
-                sphere(Orad);
-            translate([-24,13,3])
-                sphere(Orad);
-            translate([18,-13,3])
-                sphere(Orad);
-            translate([18,13,3])
-                sphere(Orad);
+            translate([-24,-13,3]) sphere(Orad);
+            translate([-24,13,3])  sphere(Orad);
+            translate([18,-13,3])  sphere(Orad);
+            translate([18,13,3])   sphere(Orad);
             // middle
-            translate([-24,-16.5,12.5])
-                sphere(Orad);
-            translate([-24,16.5,12.5])
-                sphere(Orad);
-            translate([22,-16.5,12.5])
-                sphere(Orad);
-            translate([22,16.5,12.5])
-                sphere(Orad);
+            translate([-24,-16.5,12.5]) sphere(Orad);
+            translate([-24,16.5,12.5])  sphere(Orad);
+            translate([22,-16.5,12.5])  sphere(Orad);
+            translate([22,16.5,12.5])   sphere(Orad);
+            /*
             // middle
-            translate([-24,-16.5,17.5])
-                sphere(Orad);
-            translate([-24,16.5,17.5])
-                sphere(Orad);
-            translate([22,-16.5,17.5])
-                sphere(Orad);
-            translate([22,16.5,17.5])
-                sphere(Orad);
+            translate([-24,-16.5,17.5]) sphere(Orad);
+            translate([-24,16.5,17.5])  sphere(Orad);
+            translate([22,-16.5,17.5])  sphere(Orad);
+            translate([22,16.5,17.5])   sphere(Orad);
+            */
             // top corners
-            translate([-23,-14.5,20])
-                sphere(Orad);
-            translate([-23,14.5,20])
-                sphere(Orad);
-            translate([20.5,-14.5,20])
-                sphere(Orad);
-            translate([20.5,14.5,20])
-                sphere(Orad);
+            translate([-23,-14.5,20])  sphere(Orad);
+            translate([-23,14.5,20])   sphere(Orad);
+            translate([20.5,-14.5,20]) sphere(Orad);
+            translate([20.5,14.5,20])  sphere(Orad);
         }
         // clear LED
         translate([-7.4,-20.5,18])
             rotate([-90,0,0])
                 cylinder(d=6,h=10);
         // clear USB
-        translate([-24,-20.5,13])
-            cube([11,10,9]);
+        translate([-24,-20.5,13]) cube([11,10,8]);
         // clear switch
-        translate([-14,15.5,13.5])
-            cube([7.5,5,3.5]);
+        translate([-14,15.5,13.5]) cube([7.5,5,3.5]);
+        translate([-20,12.4,12.2]) cube([20,5,6]);
         // clear program
-        translate([0.5,14,15])
-            cube([17,6,5.5]);
+        translate([0.5,14,15]) cube([17,6,5.5]);
         // clear LCD
-        translate([6.5,-15,20.5])
-            cube([15,29.5,10]);
+        translate([6.5,-15,20.5]) cube([15,29.5,10]);
     }
     // LCD Bezel
     difference()
@@ -568,9 +537,9 @@ module case1()
         // clear USB
         translate([-23.2,-19,15])
             cube([8.8,6,4.2]);
-        translate([-26,-21.47,19])
-            rotate([-30,0,0])
-                cube([15,2,5]);
+        translate([-26,-20,15])
+            rotate([-14,0,0])
+                cube([15,2,8]);
     }
     
     // battery supports
@@ -592,17 +561,17 @@ module case1()
     translate([5.75,-16,19.5]) difference()
     {
         cube([17,27,1]);
-        translate([2,-0.1,-0.1])
-            cube([12.5,27.2,1.2]);
+        translate([5,10,-0.1])
+            cube([7.5,27.2,1.2]);
     }
     // pcb supports
     //  pcb buffer joystick end
     translate([-25.5,-6,12])
         cube([0.5,12,5]);
     //  pcb support at switch corner
-    translate([-25.5,12.5,13]) difference()
+    translate([-25.5,11.5,13]) difference()
     {
-        cube([5,7,3]);
+        cube([5,6,3]);
         translate([-0.1,-0.1,0.75])
             cube([5.2,0.75,1.5]);
     }
@@ -614,11 +583,11 @@ module case1()
             cube([0.75,7.2,1.5]);
     }
     //  pcb support by LED
-    translate([-4.5,-19,13]) difference()
+    translate([-2.5,-18.5,13]) difference()
     {
-        cube([12,5.5,3]);
-        translate([-0.1,5,0.75])
-            cube([12.2,1,1.5]);
+        cube([10,5,3]);
+        translate([-0.1,4,0.75])
+            cube([12.2,2,1.5]);
     }
     
 }
