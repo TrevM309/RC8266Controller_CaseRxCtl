@@ -82,6 +82,8 @@ module assy2()
 
 module print1()
 {
+    translate([-50,-30,0])
+        cube([77,60,0.3]);
     translate([0,2,14.77])
         rotate([-71.5,0,0])
             halfCase1(0); 
