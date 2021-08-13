@@ -9,7 +9,7 @@ $fn = 70;
 //case1();
 //case2();
 //bung();
-//halfCase1(0);    // 0 or 1
+//halfCase1(1);    // 0 or 1
 //stick();
 //halfStick();
 print1();
@@ -28,9 +28,9 @@ module assy1()
             //case1();
             halfCase1(0);
             translate([0,-0.1,0]) halfCase1(1);
-            //translate([-24.5,-13,2])  battery();
+            translate([-24.5,-13,2])  battery();
             translate([-24.5,-14,14]) pcb(0);
-            //translate([-8.5,0,16.5])  stick();
+            translate([-8.5,0,16.5])  stick();
             //translate([-0.5,22,14])  bung();
         }
         // remove front half
@@ -42,7 +42,7 @@ module assy1()
         //translate([-30,-30,-1]) cube([21.5,60,40]);
         // remove small left
         //translate([-30,-30,-1]) cube([10,60,40]);
-        translate([-30,-30,-1]) cube([5.2,60,40]);
+        //translate([-30,-30,-1]) cube([5.5,60,40]);
         // remove right
         //translate([-8.5,-30,-1]) cube([40,60,40]);
         // remove bottom part
@@ -472,7 +472,7 @@ module case1()
             translate([-0.1,0,0])
                 rotate([-90,0,0]) cylinder(d=4.2,h=30);
         }
-        translate([-24.5,-20,9])
+        translate([-24,-20,9])
         {
             translate([-0.1,0,0])
                 rotate([-90,0,0]) cylinder(d=4.2,h=30);
@@ -550,7 +550,7 @@ module case1()
             translate([-25.5,-14,11])
             {
                 rotate([0,90,0]) cylinder(d=3,h=49);
-                translate([2,-4.5,-0.75]) cube([47,4.5,1.5]);
+                translate([3.2,-4.5,-0.75]) cube([46,4.5,1.5]);
             }
             translate([-25.5,13,11])
             {
@@ -594,7 +594,7 @@ module case1()
             {
                 rotate([-90,0,0]) cylinder(d=5,h=36.2);
             }
-            translate([-24.5,-17.4,9])
+            translate([-24,-17.4,9])
             {
                 rotate([-90,0,0]) cylinder(d=5,h=34.8);
             }
@@ -609,7 +609,7 @@ module case1()
             translate([0,-0.1,0])
                 rotate([-90,0,0]) cylinder(d=1.5,h=40);
         }
-        translate([-24.5,-17.4,9])
+        translate([-24,-17.4,9])
         {
             translate([0,-0.1,0])
                 rotate([-90,0,0]) cylinder(d=4.2,h=16.1);
