@@ -28,9 +28,9 @@ module assy1()
             //case1();
             halfCase1(0);
             translate([0,-0.1,0]) halfCase1(1);
-            translate([-24.5,-13,2])  battery();
+            translate([-21,-13,2])  battery();
             translate([-24.5,-14,14]) pcb(0);
-            translate([-8.5,0,16.5])  stick();
+            translate([-8.5,0,16.5])  rotate([0,0,90]) stick();
             //translate([-0.5,22,14])  bung();
         }
         // remove front half
@@ -42,12 +42,15 @@ module assy1()
         //translate([-30,-30,-1]) cube([21.5,60,40]);
         // remove small left
         //translate([-30,-30,-1]) cube([10,60,40]);
-        //translate([-30,-30,-1]) cube([5.5,60,40]);
         // remove right
         //translate([-8.5,-30,-1]) cube([40,60,40]);
         // remove bottom part
         //translate([-30,-30,-1]) cube([60,60,14]);
         //translate([-30,-30,-1]) cube([60,60,20]);
+        // show joystick end mounting
+        //translate([-30,-30,-1]) cube([5.5,60,40]);
+        // show LCD end mounting
+        //translate([21,-30,-1]) cube([4,60,40]);
     }
 }
 
@@ -89,23 +92,15 @@ module assy2()
 
 module print1()
 {
-    translate([-50,-30,0])
-        cube([77,60,0.3]);
-    translate([0,2,14.77])
-        rotate([-71.5,0,0])
-            halfCase1(0); 
-    translate([0,-2,14.77])
-        rotate([71.5,0,0])
-            halfCase1(1);
-    translate([-22,-15,0])
-        rotate([90,0,-90])
-            halfStick();
-    translate([-22,15,0])
-        rotate([90,0,-90])
-            halfStick();
-    //translate([25,-10,2])
-    //    rotate([90,0,90])
-    //        bung();
+    // raft
+    translate([-52,-35,0]) cube([80,70,0.3]);
+    //translate([0,2,14.77]) rotate([-71.5,0,0]) halfCase1(0); 
+    //translate([0,-2,14.77]) rotate([71.5,0,0]) halfCase1(1);
+    translate([0, 5,21.9]) rotate([-104,0,0]) halfCase1(0); 
+    translate([0,-5,21.9]) rotate([ 104,0,0]) halfCase1(1);
+    translate([-22,-15,0]) rotate([90,0,-90]) halfStick();
+    translate([-22, 15,0]) rotate([90,0,-90]) halfStick();
+    //translate([-41,0,-8])  stick();
 }
 
 //print2();
@@ -371,51 +366,58 @@ module bung()
 
 module stick()
 {
-    // movement shield
     difference()
     {
         union()
         {
+            // movement shield
             difference()
             {
-                sphere(r = 15.5);
-                sphere(r = 14);
-                translate([0,0,-16])
-                    cylinder(r = 15.7,h=24);
+                union()
+                {
+                    difference()
+                    {
+                        sphere(r = 15.5);
+                        sphere(r = 14);
+                        translate([0,0,-16])
+                            cylinder(r = 15.7,h=24);
+                    }
+                    // shaft
+                    translate([0,0,14])
+                        cylinder(d=7,h=10.1);
+                }
+                translate([0,0,10]) difference()
+                {
+                    cylinder(d=4,h=5.9);
+                    translate([-3,-3,-0.1])
+                        cube([3-(3.5/2),6,6.2]);
+                    translate([3.5/2,-3,-0.1])
+                        cube([3-(3.5/2),6,6.2]);
+                }
             }
-            // shaft
-            translate([0,0,14])
-                cylinder(d=6,h=10.1);
+            // top button
+            translate([0,0,24]) difference()
+            {
+                scale([1,1,0.4])
+                    sphere(d=18);
+                translate([0,0,-5])
+                    cylinder(d=18.5,h=5);
+                    
+            }
+            translate([0,0,14-3])
+                cylinder(d1=6.5,d2=9,h=3);
         }
-        translate([0,0,10]) difference()
+        // locate
+        translate([0,0,14-3])
         {
-            cylinder(d=4,h=5.9);
-            translate([-3,-3,-0.1])
-                cube([3-(3.5/2),6,6.2]);
-            translate([3.5/2,-3,-0.1])
-                cube([3-(3.5/2),6,6.2]);
-        }
-    }
-    // top button
-    translate([0,0,24]) difference()
-    {
-        scale([1,1,0.4])
-            sphere(d=18);
-        translate([0,0,-5])
-            cylinder(d=18.5,h=5);
-            
-    }
-    // locate
-    translate([0,0,14-3]) difference()
-    {
-        cylinder(d1=6,d2=9,h=3);
-        translate([0,0,-0.1]) difference()
-        {
-            cylinder(d=4,h=8);
-            translate([-3,-3,-0.1])
-                cube([3-(3.5/2),6,8.2]);
-            translate([3.5/2,-3,-0.1])
-                cube([3-(3.5/2),6,8.2]);
+            translate([0,0,-0.1]) difference()
+            {
+                cylinder(d=5,h=6);
+                translate([-3,-3,-0.1])
+                    cube([3-(3.5/2),6,8.2]);
+                translate([3.5/2,-3,-0.1])
+                    cube([3-(3.5/2),6,8.2]);
+            }
         }
     }
 }
@@ -466,17 +468,6 @@ module case1()
             }
             cylinder(r1 = 6, r2 = 10,h=20);
         }
-        // screw together
-        translate([21,-20,10.4])
-        {
-            translate([-0.1,0,0])
-                rotate([-90,0,0]) cylinder(d=4.2,h=30);
-        }
-        translate([-24,-20,9])
-        {
-            translate([-0.1,0,0])
-                rotate([-90,0,0]) cylinder(d=4.2,h=30);
-        }
         hull()
         {
             // bottom corners
@@ -497,10 +488,9 @@ module case1()
         }
         // clear LED
         translate([-7.4,-20.5,18])
-            rotate([-90,0,0])
-                cylinder(d=6,h=10);
+            rotate([-90,0,0]) cylinder(d=6,h=10);
         // clear USB
-        translate([-24,-20.5,13]) cube([11,10,8]);
+        translate([-24,-20.5,13]) cube([11,10,6]);
         // clear switch
         translate([-14,15.5,13.5]) cube([7.5,5,3.5]);
         translate([-20,12.4,12.2]) cube([20,5,6]);
@@ -508,6 +498,11 @@ module case1()
         translate([0.5,14,15]) cube([17,6,5.5]);
         // clear LCD
         translate([6.5,-15,20.5]) cube([15,29.5,10]);
+        // screw together clearance
+        translate([20.9,-20,10.4])
+            rotate([-90,0,0]) cylinder(d=4.2,h=30);
+        translate([-24.1,-20,8.5])
+            rotate([-90,0,0]) cylinder(d=4.2,h=30);
     }
     difference()
     {
@@ -537,14 +532,13 @@ module case1()
             // USB support
             difference()
             {
-                translate([-25,-18,12]) cube([13,3,10]);
+                translate([-25,-18,12]) cube([13,2,8]);
                 // clear USB connector
-                translate([-24,-19,13]) cube([11,3.5,8]);
+                translate([-24,-20,13]) cube([11,3.5,6]);
                 // clear USB
-                translate([-23.2,-19,15]) cube([8.8,6,4.2]);
+                translate([-23.2,-19,14.5]) cube([8.8,6,3.5]);
                 translate([-26,-20,15])
-                    rotate([-14,0,0])
-                        cube([15,2,8]);
+                    rotate([-14,0,0]) cube([15,2,8]);
             }
             // battery supports
             translate([-25.5,-14,11])
@@ -591,32 +585,22 @@ module case1()
             }
             // screw together
             translate([21,-18,10.4])
-            {
-                rotate([-90,0,0]) cylinder(d=5,h=36.2);
-            }
-            translate([-24,-17.4,9])
-            {
-                rotate([-90,0,0]) cylinder(d=5,h=34.8);
-            }
+                rotate([-90,0,0]) cylinder(d=5.5,h=36.1);
+            translate([-24,-17.4,8.5])
+                rotate([-90,0,0]) cylinder(d=5.5,h=34.8);
         } // end union
         // screw together
-        translate([21,-20,10.5])
+        translate([21,-20.1,10.5])
         {
-            translate([0,-0.1,0])
-                rotate([-90,0,0]) cylinder(d=4.2,h=16.1);
-            translate([0,-0.1,0])
-                rotate([-90,0,0]) cylinder(d=2.2,h=21.1);
-            translate([0,-0.1,0])
-                rotate([-90,0,0]) cylinder(d=1.5,h=40);
+            rotate([-90,0,0]) cylinder(d=4.2,h=16.1);
+            rotate([-90,0,0]) cylinder(d=2.2,h=20.11);
+            rotate([-90,0,0]) cylinder(d=1.5,h=40);
         }
-        translate([-24,-17.4,9])
+        translate([-24,-17.5,8.5])
         {
-            translate([0,-0.1,0])
-                rotate([-90,0,0]) cylinder(d=4.2,h=16.1);
-            translate([0,-0.1,0])
-                rotate([-90,0,0]) cylinder(d=2.2,h=18.1);
-            translate([0,-0.1,0])
-                rotate([-90,0,0]) cylinder(d=1.5,h=40);
+            rotate([-90,0,0]) cylinder(d=4.2,h=16.1);
+            rotate([-90,0,0]) cylinder(d=2.2,h=17.5);
+            rotate([-90,0,0]) cylinder(d=1.5,h=40);
         }
     } // end difference
 }
@@ -896,5 +880,5 @@ module pcb(sw)
 
 module battery()
 {
-    cube([43,25,6]);
+    cube([40,25,6]);
 }
