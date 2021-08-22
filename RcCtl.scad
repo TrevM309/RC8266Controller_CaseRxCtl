@@ -93,11 +93,11 @@ module assy2()
 module print1()
 {
     // raft
-    translate([-52,-35,0]) cube([80,70,0.3]);
-    //translate([0,2,14.77]) rotate([-71.5,0,0]) halfCase1(0); 
-    //translate([0,-2,14.77]) rotate([71.5,0,0]) halfCase1(1);
-    translate([0, 5,21.9]) rotate([-104,0,0]) halfCase1(0); 
-    translate([0,-5,21.9]) rotate([ 104,0,0]) halfCase1(1);
+    //translate([-52,-35,0]) cube([80,70,0.3]);
+    translate([0,2,14.77]) rotate([-71.5,0,0]) halfCase1(0); 
+    translate([0,-2,14.77]) rotate([71.5,0,0]) halfCase1(1);
+    //translate([0, 5,21.9]) rotate([-104,0,0]) halfCase1(0); 
+    //translate([0,-5,21.9]) rotate([ 104,0,0]) halfCase1(1);
     translate([-22,-15,0]) rotate([90,0,-90]) halfStick();
     translate([-22, 15,0]) rotate([90,0,-90]) halfStick();
     //translate([-41,0,-8])  stick();
@@ -377,14 +377,14 @@ module stick()
                 {
                     difference()
                     {
-                        sphere(r = 15.5);
+                        sphere(r = 15);
                         sphere(r = 14);
                         translate([0,0,-16])
                             cylinder(r = 15.7,h=24);
                     }
                     // shaft
                     translate([0,0,14])
-                        cylinder(d=7,h=10.1);
+                        cylinder(d=6,h=10.1);
                 }
                 translate([0,0,10]) difference()
                 {
@@ -463,7 +463,7 @@ module case1()
         {
             difference()
             {
-                sphere(r = 16.5);
+                sphere(r = 16.7);
                 translate([-17,-17,-17]) cube([34,34,17]);
             }
             cylinder(r1 = 6, r2 = 10,h=20);
@@ -540,17 +540,19 @@ module case1()
                 translate([-26,-20,15])
                     rotate([-14,0,0]) cube([15,2,8]);
             }
+            /*
             // battery supports
-            translate([-25.5,-14,11])
+            translate([-25.5,-14,9])
             {
                 rotate([0,90,0]) cylinder(d=3,h=49);
                 translate([3.2,-4.5,-0.75]) cube([46,4.5,1.5]);
             }
-            translate([-25.5,13,11])
+            translate([-25.5,13,9])
             {
                 rotate([0,90,0]) cylinder(d=3,h=49);
                 translate([0,0,-0.75]) cube([49,5.5,1.5]);
             }
+            */
             // lcd supports
             translate([5.75,-16,19.5]) difference()
             {
@@ -592,15 +594,24 @@ module case1()
         // screw together
         translate([21,-20.1,10.5])
         {
-            rotate([-90,0,0]) cylinder(d=4.2,h=16.1);
-            rotate([-90,0,0]) cylinder(d=2.2,h=20.11);
+            rotate([-90,0,0]) cylinder(d=4.2,h=18.6);
+            rotate([-90,0,0]) cylinder(d=2.2,h=20.5);
             rotate([-90,0,0]) cylinder(d=1.5,h=40);
         }
         translate([-24,-17.5,8.5])
         {
             rotate([-90,0,0]) cylinder(d=4.2,h=16.1);
-            rotate([-90,0,0]) cylinder(d=2.2,h=17.5);
+            rotate([-90,0,0]) cylinder(d=2.2,h=18);
             rotate([-90,0,0]) cylinder(d=1.5,h=40);
+        }
+        translate([-8.5,0,16])
+        {
+            difference()
+            {
+                sphere(r = 16.7);
+                translate([-17,-17,-17]) cube([34,34,20]);
+            }
+            cylinder(r1 = 6, r2 = 10,h=20);
         }
     } // end difference
 }
@@ -751,6 +762,7 @@ module joystick()
 
 // single joystick controller
 // brown are external connectors
+//pcb(0);
 module pcb(sw)
 {
     // use step/stl for accuracy
