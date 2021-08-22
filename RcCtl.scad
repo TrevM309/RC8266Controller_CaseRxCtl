@@ -377,8 +377,8 @@ module stick()
                 {
                     difference()
                     {
-                        sphere(r = 15);
-                        sphere(r = 14);
+                        sphere(r = 15.5);
+                        sphere(r = 14.5);
                         translate([0,0,-16])
                             cylinder(r = 15.7,h=24);
                     }
