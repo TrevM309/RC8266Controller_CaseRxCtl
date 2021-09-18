@@ -18,8 +18,8 @@ $fn = 70;
 //left2();
 //right2();
 //SectChk();
-print1();
-//print2();
+//print1();
+print2();
 //assy1();
 //assy2();
 
@@ -110,7 +110,7 @@ module print1()
 //print2();
 module print2()
 {
-    //translate([-62,-36,0]) cube([125,80,0.3]);
+    translate([-65,-36,0]) cube([125,80,0.3]);
     translate([-38,0,0]) base2();
     translate([ 19,  0,26.5]) rotate([ 0,-90,0]) front2();
     translate([  0, 19,-3]) rotate([ 90,0,90]) left2();
