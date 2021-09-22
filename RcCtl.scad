@@ -18,8 +18,8 @@ $fn = 70;
 //left2();
 //right2();
 //SectChk();
-//print1();
-print2();
+print1();
+//print2();
 //assy1();
 //assy2();
 
@@ -65,14 +65,14 @@ module assy2()
         union()
         {
             //case2();
-            //base2();
-            translate([0,0,0.1]) front2();
-            translate([0.1,0,0.1]) left2();
-            translate([0.1,-0.1,0.1]) right2();
-            //translate([-22,31.5,1.6])  rotate([0,0,-90]) battery();
-            //translate([-24.5,-41+10,12])  pcb2(0);
-            //translate([-8.5,-27+10,14.7]) stick();
-            //translate([-8.5, 33-10,14.7]) stick();
+            base2();
+            //translate([0,0,0.1]) front2();
+            translate([0,0,0.1]) bleft2();
+            translate([0,0,0.1]) bright2();
+            translate([-22,31.5,1.6])  rotate([0,0,-90]) battery();
+            translate([-24.5,-41+10,12])  pcb2(0);
+            translate([-8.5,-27+10,14.7]) stick();
+            translate([-8.5, 33-10,14.7]) stick();
         }
         // remove front half (left joystick and left half LCD)
         //translate([-40,-38,-1]) cube([70,40,45]);
@@ -97,7 +97,7 @@ module assy2()
 module print1()
 {
     // raft
-    translate([-52,-35,0]) cube([80,70,0.3]);
+    //translate([-52,-35,0]) cube([80,70,0.3]);
     translate([0,2,14.77]) rotate([-71.5,0,0]) halfCase1(0); 
     translate([0,-2,14.77]) rotate([71.5,0,0]) halfCase1(1);
     //translate([0, 5,21.9]) rotate([-104,0,0]) halfCase1(0); 
@@ -110,15 +110,54 @@ module print1()
 //print2();
 module print2()
 {
-    translate([-65,-36,0]) cube([125,80,0.3]);
+    /*
+    translate([-70,-40,0]) cube([130,90,0.3]);
     translate([-38,0,0]) base2();
-    translate([ 19,  0,26.5]) rotate([ 0,-90,0]) front2();
-    translate([  0, 19,-3]) rotate([ 90,0,90]) left2();
-    translate([  0,  0, 3]) rotate([-90,0,-90]) right2();
-    translate([ 58, 30, 0]) rotate([ 90,0,-90]) halfStick();
-    translate([ 25,  6, 0]) rotate([ 90,0, 90]) halfStick();
-    translate([ 32,-42, 0]) rotate([ 90,0,180]) halfStick();
-    translate([ 46,  0, 0]) rotate([ 90,0,  0]) halfStick();
+    translate([ -23,  0,-8]) rotate([ 0,90,0]) front2();
+    translate([  40, 2, 8]) rotate([ 0,-90,0]) left2();
+    translate([  40,-2, 8]) rotate([ 0,-90,0]) right2();
+    translate([ 58, 34, 0]) rotate([ 90,0,-90]) halfStick();
+    translate([ 28, 16, 0]) rotate([ 90,0, 90]) halfStick();
+    translate([ 58, -3, 0]) rotate([ 90,0,-90]) halfStick();
+    translate([ 28,-23, 0]) rotate([ 90,0, 90]) halfStick();
+    */
+    //translate([-100,-40,0]) cube([132,90,0.3]);
+    translate([-20, 0,   0])   base2();
+    translate([-72, 1   ,-11.5]) bleft2();
+    translate([-72,-1   ,-11.5]) bright2();
+    translate([ 32, 34, 0]) rotate([ 90,0,-90]) halfStick();
+    translate([  2, 16, 0]) rotate([ 90,0, 90]) halfStick();
+    translate([ 32, -3, 0]) rotate([ 90,0,-90]) halfStick();
+    translate([  2,-23, 0]) rotate([ 90,0, 90]) halfStick();
+}
+
+//bleft2();
+module bleft2()
+{
+    difference()
+    {
+        union()
+        {
+            front2();
+            left2();
+            right2();
+        }
+        translate([-27,-35,9]) cube([49,38,22]);
+    }
+}
+
+module bright2()
+{
+    difference()
+    {
+        union()
+        {
+            front2();
+            left2();
+            right2();
+        }
+        translate([-27,3,11]) cube([49,38,20]);
+    }
 }
 
 module base2()
@@ -163,9 +202,9 @@ module front2()
         translate([0,0,1]) cylinder(d=3.5,h=13);
     }
     // mounting
-    translate([-22.1,-29,12.2]) difference()
+    translate([-22.1,-29,11.5]) difference()
     {
-        cylinder(d=5,h=6.3);
+        cylinder(d=5,h=7);
         translate([0,0,-0.1]) cylinder(d=2.5,h=13);
         translate([0,0,1]) cylinder(d=3.5,h=13);
     }
@@ -191,7 +230,7 @@ module left2()
         translate([ 14.7,34.1,13]) cylinder(d=3.5,h=10); // clear mount
     }
     // mounting
-    translate([ 14.7,34.1,12.2]) difference()
+    translate([ 14.7,34.1,11.5]) difference()
     {
         cylinder(d=6,h=7);
         translate([0,0,-0.1]) cylinder(d=2.5,h=13);
@@ -209,7 +248,7 @@ module right2()
         translate([ 15.3,-28.4,13]) cylinder(d=3.5,h=10); // clear mount
     }
     // mounting
-    translate([ 15.3,-28.4,12.2]) difference()
+    translate([ 15.3,-28.4,11.5]) difference()
     {
         cylinder(d=6,h=7);
         translate([0,0,-0.1]) cylinder(d=2.5,h=13);
